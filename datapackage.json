@@ -1,0 +1,155 @@
+{
+  "profile": "data-package",
+  "name": "solo-block-record",
+  "title": "The Solo Block Record",
+  "description": "Every solo-mined Bitcoin block found by a small or home miner that could be verified on-chain, across all public solo pools. Each row links the block on mempool.space and the source that reported it. Where a winner never published a hashrate, the hashrate and the odds derived from it are empty rather than guessed. Published by SoloLuck.io at https://sololuck.io/legends and mirrored here daily from https://sololuck.io/api/legends/v1/.",
+  "homepage": "https://sololuck.io/legends",
+  "version": "2026-09-14",
+  "keywords": [
+    "bitcoin",
+    "solo mining",
+    "bitcoin mining",
+    "blocks",
+    "open data"
+  ],
+  "licenses": [
+    {
+      "name": "CC-BY-4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/",
+      "title": "Creative Commons Attribution 4.0 International"
+    }
+  ],
+  "sources": [
+    {
+      "title": "SoloLuck.io, The Solo Block Record",
+      "path": "https://sololuck.io/legends"
+    }
+  ],
+  "contributors": [
+    {
+      "title": "SoloLuck.io",
+      "path": "https://sololuck.io",
+      "role": "publisher"
+    }
+  ],
+  "resources": [
+    {
+      "name": "blocks",
+      "path": "data/blocks.csv",
+      "profile": "tabular-data-resource",
+      "title": "Solo-mined blocks (CSV)",
+      "description": "One row per block, newest first. UTF-8, comma-separated, with a header row. An empty cell means the value is unknown.",
+      "format": "csv",
+      "mediatype": "text/csv",
+      "encoding": "utf-8",
+      "bytes": 19414,
+      "hash": "sha256:e836057f5c78eadae2c055d79e19ebaf43de4fa1f3780b3cd0b19284d551451c",
+      "schema": {
+        "fields": [
+          {
+            "name": "height",
+            "type": "integer",
+            "description": "Block height.",
+            "constraints": {
+              "required": true,
+              "unique": true
+            }
+          },
+          {
+            "name": "date",
+            "type": "date",
+            "description": "Date the block was mined, UTC."
+          },
+          {
+            "name": "pool",
+            "type": "string",
+            "description": "Where the block was found: the pool named by the coinbase or by the report, or 'untagged coinbase' when the coinbase carries no pool tag."
+          },
+          {
+            "name": "hardware",
+            "type": "string",
+            "description": "The winner's hardware or hashrate as publicly reported, in words; 'hashrate not publicly reported' when the winner never published one."
+          },
+          {
+            "name": "hashrate_hs",
+            "type": "number",
+            "description": "Hashrate in hashes per second, as published by the miner, the pool operator or the press at the time. Empty when never published."
+          },
+          {
+            "name": "difficulty",
+            "type": "number",
+            "description": "Network difficulty at that height, as recorded: most rows are rounded to five or six significant figures, a few carry full precision."
+          },
+          {
+            "name": "reward_btc",
+            "type": "number",
+            "description": "Total block reward in BTC: subsidy plus fees."
+          },
+          {
+            "name": "reward_usd_reported",
+            "type": "string",
+            "description": "The reward's US dollar value as reported at the time, as free text (for example '≈ $300,000 then'). Empty when no report gave one."
+          },
+          {
+            "name": "expected_seconds_per_block",
+            "type": "number",
+            "description": "Expected seconds for that hashrate to find a block at that difficulty: difficulty × 2^32 / hashrate_hs. Empty when the hashrate is unknown."
+          },
+          {
+            "name": "chance_per_day",
+            "type": "number",
+            "description": "Probability of finding a block within one day at that hashrate and difficulty: 1 − e^(−86400 / expected_seconds_per_block). Empty when the hashrate is unknown."
+          },
+          {
+            "name": "chance_per_day_one_in",
+            "type": "integer",
+            "description": "The same daily chance written as '1 in N': round(1 / chance_per_day). Empty when the hashrate is unknown."
+          },
+          {
+            "name": "source_label",
+            "type": "string",
+            "description": "The source that reported the block."
+          },
+          {
+            "name": "source_url",
+            "type": "string",
+            "format": "uri",
+            "description": "Link to that source."
+          },
+          {
+            "name": "block_url",
+            "type": "string",
+            "format": "uri",
+            "description": "The block on mempool.space."
+          },
+          {
+            "name": "story",
+            "type": "string",
+            "description": "A short account of the block, in English."
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "description": "Caveats, for example when an entry is inferred from the payout pattern rather than declared by the miner. Empty when there are none."
+          }
+        ],
+        "primaryKey": "height",
+        "missingValues": [
+          ""
+        ]
+      }
+    },
+    {
+      "name": "blocks-json",
+      "path": "data/blocks.json",
+      "profile": "data-resource",
+      "title": "Solo-mined blocks with the dataset's own metadata (JSON)",
+      "description": "The same rows as data/blocks.csv under 'blocks', plus the publisher's metadata: version, method, inclusion rule, licence, cite_as and the CSV's sha256.",
+      "format": "json",
+      "mediatype": "application/json",
+      "encoding": "utf-8",
+      "bytes": 34305,
+      "hash": "sha256:5dac5ecf13632b40cb9bbf0b5b29bc0def7d274d1bdc4fdbf92a38e84a772922"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+# Mirror The Solo Block Record from sololuck.io into data/.
+#
+# Downloads ONLY what https://sololuck.io/api/legends/v1/ already publishes
+# (blocks.json and blocks.csv) and commits when something changed. It never
+# contacts a mining pool or a block explorer: every block is verified on the
+# chain by the publisher, never from GitHub's runners.
+#
+# scripts/mirror.py checks the two files against each other first (the CSV must
+# match the csv_sha256 published inside the JSON, and both must list the same
+# blocks with the documented columns). A copy that fails a check stops the run
+# instead of being committed.
+name: mirror
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download and check the record (sololuck.io only)
+        run: python3 scripts/mirror.py
+
+      - name: Commit on change
+        run: |
+          git add data datapackage.json CITATION.cff
+          if git diff --cached --quiet; then
+            echo "No change."
+            exit 0
+          fi
+          version=$(python3 -c 'import json; print(json.load(open("data/blocks.json"))["version"])')
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "record: mirror sololuck.io version ${version} ($(date -u +%Y-%m-%d))"
+          git push
+
+      # GitHub switches off a public repository's scheduled workflows after 60 days
+      # without repository activity. The record can go longer than that without a
+      # new block, so re-enable this workflow on every run (a no-op while it is on).
+      - name: Keep the daily schedule alive
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/mirror.yml/enable"

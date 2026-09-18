@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below."
+type: dataset
+title: "The Solo Block Record"
+abstract: "Every solo-mined Bitcoin block found by a small or home miner that could be verified on-chain, across all public solo pools."
+authors:
+  - name: "SoloLuck.io"
+    website: "https://sololuck.io"
+version: "2026-09-14"
+date-released: "2026-09-14"
+license: CC-BY-4.0
+url: "https://sololuck.io/legends"
+repository: "https://github.com/sololuckio/solo-block-record"
+keywords:
+  - bitcoin
+  - solo mining
+  - bitcoin mining
+  - blocks
+  - open data
