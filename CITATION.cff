@@ -6,8 +6,8 @@ abstract: "Every solo-mined Bitcoin block found by a small or home miner that co
 authors:
   - name: "SoloLuck.io"
     website: "https://sololuck.io"
-version: "2026-10-11"
-date-released: "2026-10-11"
+version: "2026-10-26"
+date-released: "2026-10-26"
 license: CC-BY-4.0
 url: "https://sololuck.io/legends"
 repository: "https://github.com/sololuckio/solo-block-record"
