@@ -4,7 +4,7 @@
   "title": "The Solo Block Record",
   "description": "Every solo-mined Bitcoin block found by a small or home miner that could be verified on-chain, across all public solo pools. Each row links the block on mempool.space and the source that reported it. Where a winner never published a hashrate, the hashrate and the odds derived from it are empty rather than guessed. Published by SoloLuck.io at https://sololuck.io/legends and mirrored here daily from https://sololuck.io/api/legends/v1/.",
   "homepage": "https://sololuck.io/legends",
-  "version": "2026-10-26",
+  "version": "2026-10-28",
   "keywords": [
     "bitcoin",
     "solo mining",
@@ -42,8 +42,8 @@
       "format": "csv",
       "mediatype": "text/csv",
       "encoding": "utf-8",
-      "bytes": 21197,
-      "hash": "sha256:bdccfc9ed2e3b6b7d254ca64d5982211c527f0e3d7b1d182df679ae429e0949a",
+      "bytes": 22155,
+      "hash": "sha256:c00a81e0280fe34c0dfb2892b52ba12ca33ce892e62c6f8689a44e2b559272fd",
       "schema": {
         "fields": [
           {
@@ -148,8 +148,8 @@
       "format": "json",
       "mediatype": "application/json",
       "encoding": "utf-8",
-      "bytes": 37279,
-      "hash": "sha256:e02ea65531c7e8f772497b6a1bf111421b130db3841ff8045335ba8b01192269"
+      "bytes": 38797,
+      "hash": "sha256:17180e448eaf6935cffd6651e08b103825bdc1ea7fd81ff093a3768a124d9120"
     }
   ]
 }
